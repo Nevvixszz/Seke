@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+# Убираем старые процессы (автозапуск)
+killall sxhkd
+killall polybar
+killall feh # для обоев
+
+# Автозапуск самого важного
+sxhkd &
+# Установим обои (скачай картинку из интернета, похожую на галактику)
+feh --bg-fill ~/wallpaper.jpg &
+# Запускаем бар
+~/.config/polybar/launch.sh &
+
+# --- Настройки Окон (как на картинке) ---
+
+# Глобальные отступы: внешние (margin) и внутренние (gaps)
+bspc config top_padding    35
+bspc config bottom_padding 10
+bspc config left_padding   10
+bspc config right_padding  10
+bspc config window_gap     20 # Большие зазоры между окнами!
+
+# Границы окон
+bspc config border_width        2
+# Цвет активного окна (бирюзовый/cyan)
+bspc config active_border_color "#7dcfff"
+# Цвет неактивного окна (темно-серый)
+bspc config normal_border_color "#1a1b26"
+bspc config focused_border_color "#7dcfff"
+
+bspc config split_ratio          0.50
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+# Рабочие столы (на картинке их 5)
+bspc monitor -d 1 2 3 4 5
+
+# Правила для окон (чтобы они открывались как на картинке)
+bspc rule -a Firefox desktop='^2'
+bspc rule -a Telegram-desktop desktop='^3'
+# Окно со временем можно сделать плавающим, если хочешь
+# bspc rule -a Tty-clock state=floating
+
